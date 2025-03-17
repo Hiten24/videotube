@@ -3,6 +3,10 @@ import cors from "cors"
 import cookieParser from "cookie-parser"
 import { errorHandler } from "./middlewares/error.middlewares.js"
 
+// advanced logger
+import logger from "./logger.js"
+import morgan from "morgan"
+
 // import routes
 import healthcheckRouter from "./routes/healthcheck.routes.js"
 import userRouter from "./routes/user.routes.js"
@@ -15,6 +19,22 @@ import tweetRouter from "./routes/tweet.routes.js"
 import videRouter from "./routes/video.routes.js"
 
 const app = express()
+
+const morganFormat = ":method :url :status :response-time ms"
+
+app.use(morgan(morganFormat, {
+    stream: {
+        write: (message) => {
+            const logObject = {
+                method: message.split(" ")[0],
+                url: message.split(" ")[1],
+                status: message.split(" ")[2],
+                responseTime: message.split(" ")[3],
+            };
+            logger.info(JSON.stringify(logObject))
+        },
+    },
+}));
 
 app.use(
     cors({

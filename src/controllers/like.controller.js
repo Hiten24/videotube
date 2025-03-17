@@ -9,7 +9,7 @@ const toggleVideoLike = asyncHandler(async (req, res) => {
     // TODO: toggle like on video
 })
 
-const toogleCommentLike = asyncHandler(async (req, res) => {
+const toggleCommentLike = asyncHandler(async (req, res) => {
     const {commentId} = req.params
     // TODO: toogle like on comment
 })
@@ -24,7 +24,7 @@ const getLikedVideos = asyncHandler(async (req, res) => {
 })
 
 export {
-    toogleCommentLike,
+    toggleCommentLike,
     toggleTweetLike,
     toggleVideoLike,
     getLikedVideos
